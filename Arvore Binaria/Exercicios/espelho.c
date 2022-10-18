@@ -2,13 +2,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <math.h>
 
 typedef struct noA {
-    char info;
-    struct noA *esq;
-    struct noA *dir;
+    int info;
+    struct noA *esq, *dir;
 } TyNoA;
 
 void espelho(TyNoA *raiz) {
@@ -28,17 +26,17 @@ void imprime(TyNoA *nodo, int tab) {
         printf("-");
     }
     if (nodo != NULL) {
-        printf("%c\n", nodo->info);
+        printf("%d\n", nodo->info);
         imprime(nodo->esq, tab + 2);
         printf("\n");
         imprime(nodo->dir, tab + 2);
     } else printf("vazio");
 }
-
+/*
 void imprimeProfundidade(TyNoA *nodo, int altura) {
     altura = altura - 1;
     if (nodo != NULL) {
-        printf("%c", nodo->info);
+        printf("%d", nodo->info);
         if (altura > 0) {
             imprimeProfundidade(nodo->esq, altura);
             imprimeProfundidade(nodo->dir, altura);
@@ -50,54 +48,35 @@ void imprimeProfundidade(TyNoA *nodo, int altura) {
             imprimeProfundidade(NULL, altura);
         }
     }
-}
+}*/
 
-TyNoA *criaArvore(char entrada[100], int tamanho) {
-    char novaEntrada[100];
-    int i,j;
-    TyNoA *novo;
-    novo = NULL;
-    if ((tamanho > 0) && (entrada[0] != '*')) {
-        novo = (TyNoA *) malloc(sizeof(TyNoA));
-        novo->info = entrada[0];
-        tamanho = tamanho / 2;
-
-        i = 1;
-        j = 0; 
-        while (i <= tamanho) {
-            novaEntrada[j] = entrada[i];
-            i++;
-            j++;
-        }
-        novaEntrada[i] = '\0';
-        novo->esq = criaArvore(novaEntrada, tamanho);
-
-        i = tamanho+1;
-        j = 0; 
-        while (i <= tamanho*2) {
-            novaEntrada[j] = entrada[i];
-            i++;
-            j++;
-        }
-        novaEntrada[i] = '\0';
-        novo->dir = criaArvore(novaEntrada, tamanho);
-    }
-    return novo;
+void *insere(TyNoA **arv, int num, int alt) {
+    if ((*arv == NULL)){
+        *arv = (TyNoA *) malloc(sizeof(TyNoA));
+        (*arv)->info = num;
+        (*arv)->esq = NULL;
+        (*arv)->dir = NULL;
+    } else if (num < (*arv)->info){
+        insere(&((*arv)->esq), num, ++alt);
+    } else
+        insere(&((*arv)->dir), num, ++alt);
 }
 
 int main (void) {
     TyNoA* raiz = NULL;
-    int tam;
-    int altura;
-    char entrada[100];
+    int alt = 0, valor;
 
-    scanf("%s", entrada);
-    tam = strlen(entrada);
-    altura = log2(tam + 1);
-
-    raiz = criaArvore(entrada, tam);
+    do{
+        scanf("%d", &valor);
+        if (valor > 0)
+            insere(&raiz, valor, alt);
+    } while (valor > 0);
+    
+    printf("\n\n============= Arvore Antes do Espelhamento =============\n\n");
+    imprime(raiz, 0);
+    printf("\n\n=============== Arvore Apos Espelhamento ===============\n\n");
     espelho(raiz);
-    imprime(raiz,tam);
+    imprime(raiz, 0);
     printf("\n");
-    imprimeProfundidade(raiz,altura);
+    //imprimeProfundidade(raiz,altura);
 }
