@@ -3,10 +3,12 @@ Estruturas de Dados e Seus Algoritmos
 Lista de Exercícios - Listas Simplesmente Encadeadas
 
 Dada a seguinte struct de uma lista simplesmente encadeada:
-typedef struct lista {
-int info;
-struct lista *prox;
-} TLista;
+
+      typedef struct lista {
+          int info;
+          struct lista *prox;
+      } TLista;
+
 Responda às seguintes questões
 
 1. Inverta uma lista simplesmente encadeada. Uma entrada do tipo 5 -> 6 -> 10 ->
