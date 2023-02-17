@@ -1,0 +1,41 @@
+Nome: Pedro Henrique Chagas Pereira
+Numero: 52
+
+INSERÇÃO
+
+Primeiramente se busca o local onde o elemento deve ser inserido
+	Se o elemento for menor que a chave comparada, desce pela esquerda da arvore
+	Se o elemento for igual que a chave comparada ou chegar ao fim da lista, desce pela direita da arvore
+Isso é feito até chegarmos ao nó folha onde ele deve ser inserido
+Uma vez no nó folha busca-se a posição em que ele deve ficar
+	Se com sua inserção o nó folha ficar com menos de 2d + 1 chaves, inserimos normalmente
+	Caso contrário fazemos o particionamento. 
+
+PARTICIONAMENTO DO NÓ FOLHA
+
+Nó que será partiocionado, P;
+Seu pai, W;
+Cria-se um nó, Q;
+
+Divide-se as chaves entre P e Q 
+P fica com as d primeiras chaves 
+O restante é movido para Q
+Ajusta-se os ponteiro de Q e P 
+O ponteiro de P aponta para Q e o de Q para o irmão que P apontava anteriormente
+A chave d + 1 é copiada para W
+Ajusta-se posicionamento e ponteiros de W (se necessário)  
+
+
+PARTICIONAMENTO DO NÓ INTERNO
+
+Nó que será partiocionado, P;
+Seu pai, W;
+Cria-se um nó, Q;
+
+Divide-se as chaves entre P e Q 
+P fica com as d primeiras chaves 
+O restante é movido para Q
+Ajusta-se os ponteiro de Q e P 
+O ponteiro de P aponta para Q e o de Q para o irmão que P apontava anteriormente
+A chave d + 1 é movida para W
+Ajusta-se posicionamento e ponteiros de W (se necessário)
