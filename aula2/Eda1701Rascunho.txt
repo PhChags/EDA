@@ -1,0 +1,110 @@
+Árvores Binárias 
+
+É uma estrutura com hierarquia 
+Nó raiz: A
+Filhos de A: B, C, D
+Nós Folhas: E, F, G, I, J, k (copiar exemplo depois, copiar apenas terminologia (mais estetico))
+Estrutura de Arvore não pode ter mais de um pai(grafos podem)
+Exemplo de aplicação: árvore de decisão, árvore de aplicação
+Definições (copiar depois (marolei))
+* Toda árvore tem uma única raiz
+* 
+*
+Grau do nó, é o número de nós filhos
+Nó interno (ou nó derivação), é o nó com pelo menos 1 filho (grau > 0)
+Nó folha, é o nó sem filho
+Um caminho é uma sequencia de nós que leva de um nó a outro
+Comprimento do caminho, número de ligações entre os nós do caminho
+Nível, raiz é sempre o nível 1, a cada passo pra chegar em um nó, aumenta o nível, seria o andar onde se encontra na arvore
+Altura da árvore é o maior nível
+
+Arvore Ordena, ordem das subarvores é relevante, uma árvore ordenada tem os filhos em ordem da esquerda pra direita. Duas arvores são isormorfas quando diferem apenas na ordem das subarvores
+Floresta é um conjunto de arvores
+Representação em modo de texto 
+Diagrama de barras (para impressão em códigos principalmente) e diagrama hierarquico
+
+Árvores binárias 
+Cada nó aponta 2 filhos
+Definição formal é um conjunto finito T de zero ou mais nós (nodos), tal que:
+Se o número de nós é maior do que zero
+*existe um nó denominado raiz da arvore
+* os demais nós formam 2 conjuntos disjuntos S1, S2
+Se o número de nós é igual a zero
+*árvore vazia
+
+Tipos de árvores binárias (copiar depois)
+Estritamente binária
+Arvore binaria completa
+Binaria Cheia 
+Zigue Zague
+
+Percorrer árvore, queremos percorrer todos os nós da árvore para executar alguma operação
+
+Exemplos de caminho possíveis 
+caminho em largura:
+A, B, C, D, E, F, G
+caminho em profundidade (pré ordem):
+
+1-Visitar a raiz
+2-Descer pela esquerda até que seja vazio
+3- Voltar um nivel e descer pela direita
+
+Busca em largura (por nível):
+1- Visitar a raiz
+2- Repetir com a árvore esquerda
+3- Repetir com a árvore direita
+
+Ordem Simetrica
+1- Percorre sub-arvore esquerda
+2- Visita raiz
+3- Percorre sub-arvore direita
+
+Pós-Ordem 
+1- Percorre sub-árvore esquerda
+2- Percorre sub-árvore direita
+3- Visita raiz
+
+ALgoritimo para percorrer em profundidade
+Estrutura auxiliar pilha
+empilhar raiz
+repetir até que a pilha fique vazia
+1- Desempilha topo da pilha (visita)
+2- empilha nó da direita (se diferente de NULL)
+3- empilha nó da esquerda (se diferente de NULL)
+
+Algoritmo para percorrer percurso em largura 
+Estrutura auxiliar necessária: fila 
+Adicionar a raiz na fila
+Repetir até que a fila fique vazia
+1- Retirar o primeiro na fila (visista) 
+2- Adicionar nó da esquerda na fila (se diferente de NULL)
+3- Adicionar nó da direita na fila (se diferente de NULL)
+
+Implementação Recurssiva
+void profundidade(TNoA* a){
+	if (a != NULL) {
+		printf("%c\n", a->info);
+		profundidade(a->esq);
+		profundidade(a->dir);
+	}
+}
+
+void simetrica(TNoA* a)
+{
+     if (a!= NULL)
+     {
+          simetrica(a->esq);
+          printf("%c ",a->info);
+          simetrica(a->dir);
+      }
+}
+
+void posOrdem(TNoA* a)
+{
+     if (a!= NULL)
+     {
+          posOrdem(a->esq);
+          posOrdem(a->dir);
+          printf("%c ",a->info);
+      }
+}

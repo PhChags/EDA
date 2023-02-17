@@ -1,0 +1,46 @@
+Árvore AVL
+É uma arvore binaria de busca que não ficara desbalanceada, mesmo criando uma arvore apartir do metodo da arvore balanceada
+Desbalanceamento é progressivo
+buscas ficam mais custosas
+
+balanceamento de arvores
+distribuição eficiente de nós 
+
+Fator de Balanceamento FB = h(subarv-direita) – h(subarv-esquerda)
+Se FB positivo (subárvore da direita é maior): 
+rotações à esquerda 
+Se FB negativo (subárvore da esquerda é maior)
+rotações à direita
+
+Nó com FB = -2 e filho com FB = -1 ou 0: 
+rotação do nó com FB = -2 p/ direita 
+Nó com FB = +2 e filho com FB = +1 ou 0: 
+rotação do nó com FB = +2 p/ esquerda
+Nó com FB = -2 e filho com FB = +1: 
+rotação do nó com FB = +1 p/ esquerda, e 
+rotação do nó com FB = -2 p/ direita
+Nó com FB = +2 e filho com FB = -1: 
+rotação do nó com FB = -1 p/ direita, e 
+rotação do nó com FB = +2 p/ esquerda
+
+Mesmos sinal entre o nó estragado e seu filho que o substituira usamos rotação simples 
+Sinais opostos a rotação é dupla
+
+/* representação dos nós de Árvore ALV */ 
+typedef struct sNoAVL {
+    int chave;
+    int fb;
+    struct sNoAVL *esq;
+    struct sNoAVL *dir;
+} TNo
+
+TNoAVL *rotacao_direita(TNoAVL *p) {
+    TNoAVL *u;
+    u = p->esq;
+    p->esq = u->dir;
+    u->dir = p;
+    p->fb = 0;
+    p = u;
+    return p;
+}
+

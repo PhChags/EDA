@@ -1,0 +1,125 @@
+Numero Planilha 52
+
+Árvores Binárias de Busca
+Buscas devem ser eficiente (rapida)
+podemos usar uma arvore binaria para ganhar velocidadade
+a arvore deve ser organizada usando uma "chave"
+a chave tem que ser uma informação unica e que tenha uma relação de ordem entre os nós ()
+Exemplos
+Cpf
+
+
+O nó da arvore binaria de busca
+
+typedef struct sNoA {
+    char info;
+    int chave;
+    struct sNoA* esq;
+    struct sNoA* dir;
+}
+
+A organizaçãp da arvore ninaria de busca
+filhos da esquerda < raiz
+filhos da direita > raiz
+a definição vale para todas as subarvores
+Mesmas chaves podem gerar arvores diferentes
+A busca será mais eficiente na árvore menor
+
+Operações 
+Buscar um nó
+inserir um novo nó 
+remover um nó
+As operações de remoção e inserção devem garantir que a árvore 
+
+Inserção 
+Se árvore vazia, insere raiz
+Se não for vazia
+    Se chave < nó, vai pra esquerda
+    Se chave > nó, vai pra direita
+Quando achar um NULL, insere
+
+criando uma Arvore balanceada (marolei)
+
+
+
+Arvore balanceada tem como função escolher a ordem de inserção na árvore
+Arvore balanceada só é utilizada se você já conhece todos os elementos a serem inseridos
+A diferença da balanceada para a AVL é que a balanceada pode deixar a arvore "desbalanceada"
+
+Buscar por uma chave
+Se chave < nó => esquerda
+Se chave > nó => direita
+
+Complexidade da busca
+Qual é o pior caso da busca?
+Não encontrar ou quando for uma folha
+Qual é o custo no pior caso?
+Ira pecorrer os niveis todos/ altura da arvore
+Como podemos melhorar o custo do pior caso?
+diminuir a altura usando uma arvore balanceada
+
+Exclusão
+Podemos excluir um nó folha
+ou um nó com uma subarvore
+ou um nó com duas subarvores
+(caso não seja folha, para facilitar podemos copiar o conteúdo do nó mais a direita da subarvore esquerda ao nó que queremos excluir e excluimos o nó folha mais a direita da subarvore a esquerda)
+Pseudo codigo
+Recebe como parametros uma raiz para uma subarvore que inicialmente é a raiz original da arvore, porem vai ser buscado recursivamente até encontra o no que contem chave equivalente e a chave a ser excluido
+Assumir que a raiz é o nó a ser excluido neste ponto do codigo
+Se só tem subarvore direita
+    Remove o nó raiz
+    Retorna um ponteiro para o filho direito da raiz
+Se só tem subarvore da esquerda
+    Remove o nó raiz
+    Retorna um ponteiro para o filho esquerdo da raiz
+Se o nó tem 2 filhos
+temp aponta o maior nó da esquerda copia a chave do temp para a raiz
+recursivamente, manda excluir o nó temp na sub-arvore esquerda
+Atualiza o filho esquerdo da raiz com a nova raiz da sub-arvore esquerda 
+Retorna a propria raiz
+
+
+TNoA *exclui(TNoA *raiz, int chave) {
+    //Ela recebe a raiz da árvore e a chave a ser excluída
+    //Ela retorna ponteiro para a nova raiz
+    // Caso base - nada a fazer
+    if (raiz == NULL) return raiz;
+
+    // Se chave é menor do que a chave da raiz,
+    //procura na subárvore esquerda
+    if (chave < raiz->chave)
+        raiz->esq = exclui(raiz->esq, chave);
+
+    // Se chave é maior do que a chave da raiz,
+            //procura na subárvore direita
+    else if (chave > raiz->chave)
+        raiz->dir = exclui(raiz->dir, chave);
+
+        // Se chave é igual, esse é o nó que tem que ser excluído
+    else
+    {
+        // no com uma única subárvore ou nenhuma subárvore
+        if (raiz->esq == NULL)
+        {
+            TNoA *temp = raiz->dir;
+            free(raiz);
+            return temp;
+        }
+        else if (raiz->dir == NULL)
+        {
+            TNoA *temp = raiz->esq;
+            free(raiz);
+            return temp;
+        }
+
+        // nó com 2 filhos - pega o maior da subárvore esquerda
+        TNoA *temp = maior_no_esquerda(raiz->esq);
+
+        // Copia o conteúdo do nó para o nó atual
+        raiz->chave = temp->chave;
+
+        // Exclui o nó temp
+        raiz->esq = exclui(raiz->esq, temp->chave);
+    }
+    return raiz;
+}
